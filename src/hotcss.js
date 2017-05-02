@@ -5,7 +5,7 @@
 	//给hotcss开辟个命名空间，别问我为什么，我要给你准备你会用到的方法，免得用到的时候还要自己写。
 	var hotcss = {};
 
-	(function() {
+    hotcss.setViewport = function(){
         //根据devicePixelRatio自定计算scale
         //可以有效解决移动端1px这个世纪难题。
         var viewportEl = document.querySelector('meta[name="viewport"]'),
@@ -57,8 +57,11 @@
             viewportEl.setAttribute('content', content);
             document.head.appendChild(viewportEl);
         }
+    }
 
-    })();
+	// (function() {
+    //     hotcss.setViewport();
+    // })();
 
 	hotcss.px2rem = function( px , designWidth ){
 		//预判你将会在JS中用到尺寸，特提供一个方法助你在JS中将px转为rem。就是这么贴心。
@@ -81,6 +84,7 @@
 	}
 
 	hotcss.mresize = function(){
+        hotcss.setViewport();
 		//对，这个就是核心方法了，给HTML设置font-size。
 		var innerWidth = document.documentElement.getBoundingClientRect().width || window.innerWidth;
 
