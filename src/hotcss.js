@@ -59,10 +59,6 @@
         }
     }
 
-	// (function() {
-    //     hotcss.setViewport();
-    // })();
-
 	hotcss.px2rem = function( px , designWidth ){
 		//预判你将会在JS中用到尺寸，特提供一个方法助你在JS中将px转为rem。就是这么贴心。
 		if( !designWidth ){
@@ -71,7 +67,7 @@
 			designWidth = parseInt(hotcss.designWidth , 10);
 		}
 
-		return parseInt(px,10)*320/designWidth/20;
+        return parseInt(px,10) / (designWidth/10);
 	}
 
 	hotcss.rem2px = function( rem , designWidth ){
@@ -80,7 +76,7 @@
 			designWidth = parseInt(hotcss.designWidth , 10);
 		}
 		//rem可能为小数，这里不再做处理了
-		return rem*20*designWidth/320;
+        return rem * (designWidth / 10);
 	}
 
 	hotcss.mresize = function(){
@@ -94,7 +90,7 @@
 
 		if( !innerWidth ){ return false;}
 
-		document.documentElement.style.fontSize = ( innerWidth*20/320 ) + 'px';
+		document.documentElement.style.fontSize = ( innerWidth / 10 ) + 'px';        
 
         hotcss.callback && hotcss.callback();
 
