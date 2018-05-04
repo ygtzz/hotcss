@@ -3,16 +3,17 @@
 	'use strict';
 
 	//给hotcss开辟个命名空间，别问我为什么，我要给你准备你会用到的方法，免得用到的时候还要自己写。
-	var hotcss = {};
+    var hotcss = {};
+    var dprRatio = 7.5;
 
-    hotcss.setViewport = function(){
+	(function() {
         //根据devicePixelRatio自定计算scale
         //可以有效解决移动端1px这个世纪难题。
         var viewportEl = document.querySelector('meta[name="viewport"]'),
             hotcssEl = document.querySelector('meta[name="hotcss"]'),
             dpr = window.devicePixelRatio || 1,
             maxWidth = 540,
-            designWidth = 0;
+            designWidth = 750;
 
         dpr = dpr >= 3 ? 3 : ( dpr >=2 ? 2 : 1 );
 
@@ -57,7 +58,8 @@
             viewportEl.setAttribute('content', content);
             document.head.appendChild(viewportEl);
         }
-    }
+
+    })();
 
 	hotcss.px2rem = function( px , designWidth ){
 		//预判你将会在JS中用到尺寸，特提供一个方法助你在JS中将px转为rem。就是这么贴心。
@@ -67,7 +69,7 @@
 			designWidth = parseInt(hotcss.designWidth , 10);
 		}
 
-        return parseInt(px,10) / (designWidth/10);
+		return parseInt(px,10) / (designWidth/dprRatio);
 	}
 
 	hotcss.rem2px = function( rem , designWidth ){
@@ -76,11 +78,10 @@
 			designWidth = parseInt(hotcss.designWidth , 10);
 		}
 		//rem可能为小数，这里不再做处理了
-        return rem * (designWidth / 10);
+		return rem * (designWidth / dprRatio);
 	}
 
 	hotcss.mresize = function(){
-        hotcss.setViewport();
 		//对，这个就是核心方法了，给HTML设置font-size。
 		var innerWidth = document.documentElement.getBoundingClientRect().width || window.innerWidth;
 
@@ -90,7 +91,7 @@
 
 		if( !innerWidth ){ return false;}
 
-		document.documentElement.style.fontSize = ( innerWidth / 10 ) + 'px';        
+		document.documentElement.style.fontSize = ( innerWidth / dprRatio) + 'px';
 
         hotcss.callback && hotcss.callback();
 
