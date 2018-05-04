@@ -3,8 +3,9 @@
 	'use strict';
 
 	//给hotcss开辟个命名空间，别问我为什么，我要给你准备你会用到的方法，免得用到的时候还要自己写。
-    var hotcss = {};
-    var dprRatio = 7.5;
+	var hotcss = {};
+	//7.5表示1rem=100px, 10表示1rem=75px 可以根据需要灵活设置
+	var dprRatio = 7.5;
 
 	(function() {
         //根据devicePixelRatio自定计算scale
